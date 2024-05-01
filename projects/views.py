@@ -1,7 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from .forms import UserEditForm
+from .forms import UserEditForm, TaskSearchForm
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import (
@@ -17,7 +17,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 def home_view(request):
-    return render(request, "projects/home.html") 
+    return render(request, "projects/home.html")
+
+def about_view(request):
+    return render(request, "projects/about.html")
 
 class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
@@ -46,7 +49,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = "projects/cbv/project_confirm_delete.html"
     success_url = reverse_lazy("project-list")
-
+    
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "projects/cbv/task_list.html"
@@ -128,3 +131,31 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+def task_search_view(request):
+    if request.method == "GET":
+        form = TaskSearchForm()
+        return render(
+            request, "projects/form_search.html", context={"search_form": form}
+        )
+    elif request.method == "POST":
+        form = TaskSearchForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            status = form.cleaned_data["status"]
+            priority = form.cleaned_data["priority"]
+
+            found_tasks = Task.objects.filter(title__icontains=title)
+
+            if status:
+                found_tasks = found_tasks.filter(status=status)
+
+            if priority:
+                found_tasks = found_tasks.filter(priority=priority)
+
+            context = {"task_list": found_tasks}
+            return render(request, "projects/cbv/task_list.html", context)
+        else:
+            return render(
+                request, "projects/form_search.html", context={"search_form": form}
+            )
