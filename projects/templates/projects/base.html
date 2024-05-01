@@ -40,7 +40,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkTask">
               <a class="dropdown-item" href="{% url 'project-list' %}">All Projects</a>
               <a class="dropdown-item" href="{% url 'project-create' %}">Create Project</a>
-              <a class="dropdown-item" href="">Search Projects</a>
+              <!-- <a class="dropdown-item" href="">Search Projects</a> -->
             </div>
           </li>
           <!-- Dropdown for Tasks -->
@@ -78,7 +78,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSubtask">
               <a class="dropdown-item" href="{% url "subtask-list" %}">All Subtasks</a>
               <a class="dropdown-item" href="{% url 'subtask-create' %}">Create Subtask</a>
-              <a class="dropdown-item" href="">Search Subtasks by Title</a>
+              <!-- <a class="dropdown-item" href="">Search Subtasks by Title</a> -->
             </div>
           </li>
         </ul>
@@ -95,9 +95,11 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
+          <!--
           <li class="nav-item">
             <a class="nav-link" href="">Create User</a>
           </li>
+          -->
           {% endif %}
         </ul>
       </div>
