@@ -1,0 +1,46 @@
+from django.urls import path
+from .views import (
+    home_view,
+    ProjectListView,
+    ProjectCreateView,
+    ProjectDetailView,
+    ProjectUpdateView,
+    ProjectDeleteView,
+    #project_search_view,
+    TaskListView,
+    TaskCreateView,
+    TaskDetailView,
+    TaskUpdateView,
+    TaskDeleteView,
+    SubtaskListView,
+    SubtaskCreateView,
+    SubtaskDetailView,
+    SubtaskUpdateView,
+    SubtaskDeleteView,
+    user_login_view,
+    user_logout_view,
+    UserUpdateView
+)
+
+urlpatterns = [
+    path("", home_view, name="home"),
+    path("projects/list/", ProjectListView.as_view(), name="project-list" ),
+    path("projects/create/", ProjectCreateView.as_view(), name="project-create" ),
+    path("projects/<int:pk>/detail/", ProjectDetailView.as_view(), name="project-detail"),
+    path("projects/<int:pk>/update/", ProjectUpdateView.as_view(), name="project-update"),
+    path("projects/<int:pk>/delete/", ProjectDeleteView.as_view(), name="project-delete"),
+    #path("projects/search/", project_search_view, name="project-search"),
+    path("tasks/list/", TaskListView.as_view(), name="task-list"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
+    path("tasks/<int:pk>/detail/", TaskDetailView.as_view(), name="task-detail"),
+    path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
+    path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("subtasks/list/", SubtaskListView.as_view(), name="subtask-list"),
+    path("subtasks/create/", SubtaskCreateView.as_view(), name="subtask-create"),
+    path("subtasks/<int:pk>/detail/", SubtaskDetailView.as_view(), name="subtask-detail"),
+    path("subtasks/<int:pk>/update/", SubtaskUpdateView.as_view(), name="subtask-update"),
+    path("subtasks/<int:pk>/delete/", SubtaskDeleteView.as_view(), name="subtask-delete"),
+    path("login", user_login_view, name="login"),
+    path("logout", user_logout_view, name="logout"),
+    path("edit-user/", UserUpdateView.as_view(), name="edit-user")
+]

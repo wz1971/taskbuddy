@@ -1,0 +1,46 @@
+{% extends 'projects/base.html' %} {% block title %} Task List {% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Tasks</h2>
+      <a href="{% url 'task-create' %}" class="btn btn-success">Create Task</a>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col">Deadline</th>
+          <th scope="col">Project</th>
+          <th scope="col">User</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if task_list %} {% for task in task_list %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ task.title }}</td>
+          <td>{{ task.priority }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.deadline }}</td>
+          <td>{{ task.project }}</td>
+          <td>{{ task.user }}</td>
+          <td>
+            <a href="{% url 'task-update' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+            <a href="{% url 'task-delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+            <a href="{% url 'task-detail' task.id %}" class="btn btn-info btn-sm">Details</a>
+          </td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr>
+          <td colspan="7">No Tasks.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

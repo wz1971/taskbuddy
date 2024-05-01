@@ -1,0 +1,43 @@
+{% extends 'projects/base.html' %} {% block title %}Project Detail{% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow-sm">
+          <div class="card-header">Project Detail</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">Deadline: {{ project.deadline }}</p>
+            <p class="card-text">User: {{ project.user }}</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h3>Tasks for this project</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">User</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for task in project.tasks.all %}
+              <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.description | default:"No description." }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5">No tasks for this project.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
